@@ -7,13 +7,13 @@ on:
 env:
   MONGODB_DB_NAME: github-action-demo
 jobs:
-  env:
-    MONGODB_CLUSTER_ADDRESS: github-action-demo.bijzjic.mongodb.net
-    MONGODB_USERNAME: loihd971
-    MONGODB_PASSWORD: admin123
-    PORT: 8080
   test:
     environment: testing
+    env:
+      MONGODB_CLUSTER_ADDRESS: github-action-demo.bijzjic.mongodb.net
+      MONGODB_USERNAME: loihd971
+      MONGODB_PASSWORD: admin123
+      PORT: 8080
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -30,7 +30,8 @@ jobs:
       - name: Run tests
         run: npm test
       - name: Output information
-        run: echo "MONGODB_USERNAME: ${{env.MONGODB_USERNAME}}"
+        run: |
+          echo "MONGODB_USERNAME: ${{env.MONGODB_USERNAME}}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
